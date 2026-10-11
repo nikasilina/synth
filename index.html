@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#e6bfd5" />
+<meta name="description" content="Двухголосный веб-синтезатор с драм-машиной и цепочкой эффектов" />
+<title>DUAL BLOOM — web synth</title>
+<link rel="stylesheet" href="reset.css" />
+<link rel="stylesheet" href="fonts.css" />
+<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="animation.css" />
+</head>
+<body>
+<main class="instrument" aria-label="Двухголосный синтезатор Dual Bloom">
+<header class="topline">
+<h1>SYNTH 01</h1>
+<button class="start-button" id="playButton" type="button" aria-pressed="false">START</button>
+<h2>SYNTH 02</h2>
+</header>
+
+<section class="console">
+<aside class="voice voice--one" data-voice="0">
+<div class="control">
+<label for="volume1">volume</label>
+<input id="volume1" data-param="volume" type="range" min="0" max="1" value="0.72" step="0.01" />
+</div>
+<fieldset class="wave-picker">
+<legend>wave type</legend>
+<div class="wave-grid">
+<button type="button" data-wave="sine">sine</button>
+<button class="is-active" type="button" data-wave="triangle">triangle</button>
+<button type="button" data-wave="square">square</button>
+<button type="button" data-wave="sawtooth">saw</button>
+</div>
+</fieldset>
+<div class="control">
+<label for="detune1">detune</label>
+<input id="detune1" data-param="detune" type="range" min="-12" max="12" value="0" step="1" />
+</div>
+<div class="control">
+<label for="attack1">attack</label>
+<input id="attack1" data-param="attack" type="range" min="0.01" max="1.5" value="0.08" step="0.01" />
+</div>
+<div class="control">
+<label for="release1">release</label>
+<input id="release1" data-param="release" type="range" min="0.05" max="3" value="0.45" step="0.05" />
+</div>
+<div class="control">
+<label for="pan1">pan</label>
+<input id="pan1" data-param="pan" type="range" min="-1" max="1" value="-0.35" step="0.01" />
+</div>
+</aside>
+
+<section class="play-surface" aria-label="Игровые поверхности">
+<div class="rotating-art" aria-hidden="true"></div>
+</section>
+
+<aside class="voice voice--two" data-voice="1">
+<div class="control">
+<label for="volume2">volume</label>
+<input id="volume2" data-param="volume" type="range" min="0" max="1" value="0.68" step="0.01" />
+</div>
+<fieldset class="wave-picker">
+<legend>wave type</legend>
+<div class="wave-grid">
+<button class="is-active" type="button" data-wave="sine">sine</button>
+<button type="button" data-wave="triangle">triangle</button>
+<button type="button" data-wave="square">square</button>
+<button type="button" data-wave="sawtooth">saw</button>
+</div>
+</fieldset>
+<div class="control">
+<label for="detune2">detune</label>
+<input id="detune2" data-param="detune" type="range" min="-12" max="12" value="7" step="1" />
+</div>
+<div class="control">
+<label for="attack2">attack</label>
+<input id="attack2" data-param="attack" type="range" min="0.01" max="1.5" value="0.16" step="0.01" />
+</div>
+<div class="control">
+<label for="release2">release</label>
+<input id="release2" data-param="release" type="range" min="0.05" max="3" value="0.75" step="0.05" />
+</div>
+<div class="control">
+<label for="pan2">pan</label>
+<input id="pan2" data-param="pan" type="range" min="-1" max="1" value="0.35" step="0.01" />
+</div>
+</aside>
+
+<section class="drums" aria-label="Барабаны">
+<p class="section-label">drums</p>
+<div class="drum-grid">
+<button type="button" data-drum="kick">kick</button>
+<button type="button" data-drum="snare">snare</button>
+<button type="button" data-drum="hat">hat</button>
+<button type="button" data-drum="clap">clap</button>
+</div>
+</section>
+
+<section class="effects" aria-label="Цепочка эффектов">
+<p class="section-label fx-chain-label">fx chain</p>
+<div class="effect" data-effect="delay">
+<button class="effect__switch is-active" type="button" aria-pressed="true">delay</button>
+<label>time<input type="range" min="0" max="1" value="0.28" step="0.01" /></label>
+</div>
+<span class="chain-arrow">→</span>
+<div class="effect" data-effect="reverb">
+<button class="effect__switch is-active" type="button" aria-pressed="true">reverb</button>
+<label>wet<input type="range" min="0" max="0.8" value="0.22" step="0.01" /></label>
+</div>
+<span class="chain-arrow">→</span>
+<div class="effect" data-effect="chorus">
+<button class="effect__switch is-active" type="button" aria-pressed="true">chorus</button>
+<label>depth<input type="range" min="0" max="0.75" value="0.12" step="0.01" /></label>
+</div>
+<span class="chain-arrow">→</span>
+<div class="effect" data-effect="autopan">
+<button class="effect__switch is-active" type="button" aria-pressed="true">auto pan</button>
+<label>rate<input type="range" min="0" max="1" value="0.35" step="0.01" /></label>
+</div>
+</section>
+
+<section class="master" aria-label="Мастер-выход">
+<div class="master__head"><p class="section-label">master</p></div>
+<div class="control control--master">
+<label for="masterVolume">volume</label>
+<input id="masterVolume" type="range" min="0" max="1" value="0.78" step="0.01" />
+</div>
+<div class="output-mode"><span>output</span><button class="is-active" data-mode="stereo" type="button">stereo</button><button data-mode="mono" type="button">mono</button></div>
+</section>
+</section>
+
+</main>
+<script src="script.js"></script>
+</body>
+</html>
